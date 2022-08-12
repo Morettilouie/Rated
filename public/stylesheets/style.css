@@ -138,6 +138,11 @@ main {
   transition: background-color .1s;
 }
 
+.downvote-btn {
+  background-color: #920909;
+  transition: background-color .1s;
+}
+
 .upvote-btn:hover {
   background-color: #1f9c13;
 }

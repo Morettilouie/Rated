@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Comment } = require('../../models');
+const { Comment, Vote, User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
@@ -22,6 +22,16 @@ router.post('/', withAuth, (req, res) => {
     .catch(err => {
       console.log(err);
       res.status(400).json(err);
+    });
+});
+
+router.put('/upvote', withAuth, (req, res) => {
+  // custom static method created in models/Comment.js
+  Comment.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
+    .then(updatedVoteData => res.json(updatedVoteData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
     });
 });
 
