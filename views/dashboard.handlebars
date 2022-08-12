@@ -3,16 +3,15 @@
 
   <form class="new-post-form">
     <div>
-      <label for="post-title">Title</label>
+      <label for="post-title">Topic</label>
       <input type="text" id="post-title" name="post-title" />
     </div>
     <div>
-      <label for="post-url">Link</label>
+      <label for="post-url">Review</label>
       <input id="post-url" name="post-url" />
     </div>
     <button type="submit" class="btn">Create</button>
-  </form>
-</section>
+    {{> rating }}
 
 {{#if posts.length}}
 <section>
