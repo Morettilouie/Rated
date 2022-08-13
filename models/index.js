@@ -3,6 +3,7 @@ const Post = require('./Post');
 const User = require('./User');
 const Vote = require('./Vote');
 const Comment = require('./Comment');
+const Rating = require('./Rating');
 
 // create associations
 User.hasMany(Post, {
@@ -16,7 +17,7 @@ Post.belongsTo(User, {
 
 User.belongsToMany(Post, {
   through: Vote,
-  as: 'voted_posts',
+  as: 'voted_posts',// this will be rating
 
   foreignKey: 'user_id',
   onDelete: 'SET NULL'
@@ -38,13 +39,25 @@ Vote.belongsTo(Post, {
   foreignKey: 'post_id',
   onDelete: 'SET NULL'
 });
+Rating.belongsTo(Post, {
+  foreignKey: 'rating_id',
+  onDelete: 'SET NULL'
+});
 
 User.hasMany(Vote, {
   foreignKey: 'user_id'
 });
 
+User.hasMany(Rating, {
+  foreignKey: 'user_id'
+})
+
 Post.hasMany(Vote, {
   foreignKey: 'post_id'
+});
+// may not need this 
+Post.hasMany(Rating, {
+  foreignKey: 'rating_id'
 });
 
 Comment.belongsTo(User, {
