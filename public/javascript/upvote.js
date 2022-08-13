@@ -1,3 +1,4 @@
+// NEED TO UPDATE THIS
 async function upvoteClickHandler(event) {
   event.preventDefault();
 

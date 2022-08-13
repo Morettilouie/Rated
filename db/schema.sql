@@ -1,3 +1,3 @@
-DROP DATABASE IF EXISTS newsfeed_db;
+DROP DATABASE IF EXISTS rater_db;
 
-CREATE DATABASE newsfeed_db;
+CREATE DATABASE rater_db;
