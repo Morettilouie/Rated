@@ -18,7 +18,7 @@ class Post extends Model {
       var currentVoteStatus = result.dataValues.vote_status;
       if (!created) {
         if(currentVoteStatus === 1) {
-          currentVoteStatus = 0;
+          currentVoteStatus = -1;
         }
         else{
           currentVoteStatus = 1;
