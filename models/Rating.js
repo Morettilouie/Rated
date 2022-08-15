@@ -24,6 +24,9 @@ Rating.init(
         key: "id",
       },
     },
+    rating_value: {
+      type: DataTypes.INTEGER,
+    },
   },
   {
     sequelize,

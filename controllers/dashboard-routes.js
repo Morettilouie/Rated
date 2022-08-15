@@ -15,8 +15,9 @@ router.get('/', withAuth, (req, res) => {
       'id',
       'post_url',
       'title',
-      'created_at',
-      [sequelize.literal('(SELECT SUM(vote.vote_status) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+      // 'created_at',
+      // [sequelize.literal('(SELECT SUM(vote.vote_status) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+      // will be ratings
     ],
     include: [
       {
@@ -50,7 +51,9 @@ router.get('/edit/:id', withAuth, (req, res) => {
       'post_url',
       'title',
       'created_at',
-      [sequelize.literal('(SELECT SUM(vote.vote_status) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+      // 'created_at',
+      // [sequelize.literal('(SELECT SUM(vote.vote_status) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
+      // will be ratings
     ],
     include: [
       {

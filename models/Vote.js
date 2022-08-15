@@ -18,10 +18,10 @@ Vote.init(
       },
     },
     // will be comment_id
-    post_id: {
+    comment_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "post",
+        model: "comment",
         key: "id",
       },
     },
