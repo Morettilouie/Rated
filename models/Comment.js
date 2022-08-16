@@ -91,7 +91,7 @@ class Comment extends Model {
     });
     
   }
-  //downvote(body, models);
+  
 }
 
 Comment.init(

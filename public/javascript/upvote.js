@@ -1,17 +1,17 @@
+
 async function upvoteClickHandler(event) {
   event.preventDefault();
-  
-  const id = window.location.toString().split('/')[
-    window.location.toString().split('/').length - 1
+  const id = window.location.toString().split("/")[
+    window.location.toString().split("/").length - 1
   ];
-  const response = await fetch('/api/comments/upvote', {
-    method: 'PUT',
+  const response = await fetch("/api/comments/upvote", {
+    method: "PUT",
     body: JSON.stringify({
-      comment_id: id
+      comment_id: id,
     }),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      "Content-Type": "application/json",
+    },
   });
 
   if (response.ok) {
@@ -20,5 +20,9 @@ async function upvoteClickHandler(event) {
     alert(response.statusText);
   }
 }
+// puts a click listener on all of the vote up buttons
+const buttons = document.querySelectorAll(".upvote-btn");
+buttons.forEach((button) => {
+  button.addEventListener("click", upvoteClickHandler);
+});
 
-document.querySelector('.upvote-btn').addEventListener('click', upvoteClickHandler);

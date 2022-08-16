@@ -1,6 +1,5 @@
 async function downvoteClickHandler(event) {
     event.preventDefault();
-    console.log("down voted");
     const id = window.location.toString().split('/')[
       window.location.toString().split('/').length - 1
     ];
@@ -21,4 +20,7 @@ async function downvoteClickHandler(event) {
     }
   }
   
-  document.querySelector('.downvote-btn').addEventListener('click', downvoteClickHandler);
+  const buttons = document.querySelectorAll(".downvote-btn");
+buttons.forEach((button) => {
+  button.addEventListener("click", downvoteClickHandler);
+});
