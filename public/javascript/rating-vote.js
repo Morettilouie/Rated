@@ -7,7 +7,8 @@ async function ratingChangedHandler(event) {
       const response = await fetch('/api/posts/update-rating', {
         method: 'PUT',
         body: JSON.stringify({
-          post_id: id
+          post_id: id,
+          rating_value: event.target.value
         }),
         headers: {
           'Content-Type': 'application/json'

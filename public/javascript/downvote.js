@@ -20,7 +20,7 @@ async function downvoteClickHandler(event) {
     }
   }
   
-  const buttons = document.querySelectorAll(".downvote-btn");
-buttons.forEach((button) => {
+  const downVoteButtons = document.querySelectorAll(".downvote-btn");
+downVoteButtons.forEach((button) => {
   button.addEventListener("click", downvoteClickHandler);
 });

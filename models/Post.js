@@ -3,23 +3,24 @@ const sequelize = require("../config/connection");
 // create our Post model
 class Post extends Model {
   // this is where the 0 out of ten will be located at
-  // will move this to the comments model
-  // include: [
-  //   {
-  //     model: models.Comment,
-  //     attributes: [
-  //       "id",
-  //       "comment_text",
-  //       "post_id",
-  //       "user_id",
-  //       "created_at",
-  //     ],
-  //     include: {
-  //       model: models.User,
-  //       attributes: ["username"],
-  //     },
-  //   },
-  // ],
+  static updateRating(body, models) {
+    return models.Rating.findOrCreate({
+      where: {
+        user_id: body.user_id,
+        post_id: body.post_id,
+      },
+      defaults: {
+        rating_value: body.rating_value,
+      },
+    }).then((data)=> {
+      const [result, created] = data;
+      if(!created) {
+        models.Rating.update({rating_value: body.rating_value},
+          {where: {user_id: body.user_id, post_id: body.post_id}}
+          );
+      }
+    })
+  }
   
 }
 

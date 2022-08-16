@@ -111,7 +111,7 @@ router.post("/", withAuth, (req, res) => {
 // add rating here 
 router.put('/update-rating', withAuth, (req, res) => {
   // custom static method created in models/Post.js
-  Post.updateRating({ ...req.body, user_id: req.session.user_id }, { Rating, Comment, User })
+  Post.updateRating({ ...req.body, user_id: req.session.user_id}, { Rating, User })
     .then(updatedRatingData => res.json(updatedRatingData))
     .catch(err => {
       console.log(err);

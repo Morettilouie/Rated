@@ -1,4 +1,3 @@
-
 async function upvoteClickHandler(event) {
   event.preventDefault();
   const id = window.location.toString().split("/")[
@@ -21,8 +20,7 @@ async function upvoteClickHandler(event) {
   }
 }
 // puts a click listener on all of the vote up buttons
-const buttons = document.querySelectorAll(".upvote-btn");
-buttons.forEach((button) => {
+const upVoteButtons = document.querySelectorAll(".upvote-btn");
+upVoteButtons.forEach((button) => {
   button.addEventListener("click", upvoteClickHandler);
 });
-
