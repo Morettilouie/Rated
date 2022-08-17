@@ -3,11 +3,20 @@
   <section class="comment">
     <div class="meta">
       {{user.username}} on {{format_date created_at}}
+      
     </div>
     <div class="text">
       {{comment_text}}
+      {{#if loggedIn}}
       <button type="button" class="upvote-btn">upvote</button>
+      {{/if}}
+      {{!-- <div class="vote-count-number"> --}}
+        {{comment.vote_count}}
+      {{!-- </div> --}}
+       
+      {{#if loggedIn}}
       <button type="button" class="downvote-btn">downvote</button>
+      {{/if}}
     </div>
   </section>
   {{/each}}
