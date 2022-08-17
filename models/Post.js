@@ -12,16 +12,16 @@ class Post extends Model {
       defaults: {
         rating_value: body.rating_value,
       },
-    }).then((data)=> {
+    }).then((data) => {
       const [result, created] = data;
-      if(!created) {
-        models.Rating.update({rating_value: body.rating_value},
-          {where: {user_id: body.user_id, post_id: body.post_id}}
-          );
+      if (!created) {
+        models.Rating.update(
+          { rating_value: body.rating_value },
+          { where: { user_id: body.user_id, post_id: body.post_id } }
+        );
       }
-    })
+    });
   }
-  
 }
 
 // create fields/columns for Post model
@@ -38,9 +38,13 @@ Post.init(
       allowNull: false,
     },
     // may need to delete this field
-    post_url: {
+    content: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     user_id: {
       type: DataTypes.INTEGER,
