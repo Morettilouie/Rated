@@ -16,16 +16,16 @@ Post.belongsTo(User, {
 });
 
 User.belongsToMany(Post, {
-  through: Vote,
-  as: 'voted_posts',// this will be rating
+  through: Rating,
+  as: 'rated_posts',// this will be rating
 
   foreignKey: 'user_id',
   onDelete: 'SET NULL'
 });
 
 Post.belongsToMany(User, {
-  through: Vote,
-  as: 'voted_posts',
+  through: Rating,
+  as: 'rated_posts',
   foreignKey: 'post_id',
   onDelete: 'SET NULL'
 });
@@ -35,8 +35,8 @@ Vote.belongsTo(User, {
   onDelete: 'SET NULL'
 });
 
-Vote.belongsTo(Post, {
-  foreignKey: 'post_id',
+Vote.belongsTo(Comment, {
+  foreignKey: 'comment_id',
   onDelete: 'SET NULL'
 });
 Rating.belongsTo(Post, {
@@ -52,8 +52,8 @@ User.hasMany(Rating, {
   foreignKey: 'user_id'
 })
 
-Post.hasMany(Vote, {
-  foreignKey: 'post_id'
+Comment.hasMany(Vote, {
+  foreignKey: 'comment_id'
 });
 // may not need this 
 Post.hasMany(Rating, {
@@ -79,4 +79,4 @@ Post.hasMany(Comment, {
   foreignKey: 'post_id'
 });
 
-module.exports = { User, Post, Vote, Comment };
+module.exports = { User, Post, Vote, Comment, Rating };

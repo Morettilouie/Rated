@@ -1,14 +1,12 @@
-// NEED TO UPDATE THIS
 async function downvoteClickHandler(event) {
     event.preventDefault();
-  
     const id = window.location.toString().split('/')[
       window.location.toString().split('/').length - 1
     ];
-    const response = await fetch('/api/posts/downvote', {
+    const response = await fetch('/api/comments/downvote', {
       method: 'PUT',
       body: JSON.stringify({
-        post_id: id
+        comment_id: id
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -22,4 +20,7 @@ async function downvoteClickHandler(event) {
     }
   }
   
-  document.querySelector('.downvote-btn').addEventListener('click', downvoteClickHandler);
+  const downVoteButtons = document.querySelectorAll(".downvote-btn");
+downVoteButtons.forEach((button) => {
+  button.addEventListener("click", downvoteClickHandler);
+});

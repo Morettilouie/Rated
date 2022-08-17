@@ -3,66 +3,25 @@ const sequelize = require("../config/connection");
 // create our Post model
 class Post extends Model {
   // this is where the 0 out of ten will be located at
-  // will move this to the comments model
-  static upvote(body, models) {
-    return models.Vote.findOrCreate({
+  static updateRating(body, models) {
+    return models.Rating.findOrCreate({
       where: {
         user_id: body.user_id,
         post_id: body.post_id,
       },
       defaults: {
-        vote_status: 1,
+        rating_value: body.rating_value,
       },
-    }).then((data) => {
+    }).then((data)=> {
       const [result, created] = data;
-      var currentVoteStatus = result.dataValues.vote_status;
-      if (!created) {
-        if(currentVoteStatus === 1) {
-          currentVoteStatus = -1;
-        }
-        else{
-          currentVoteStatus = 1;
-        }
-        models.Vote.update(
-          { vote_status: `${currentVoteStatus}`},
-          { where: { user_id: body.user_id, post_id: body.post_id } }
-        );
+      if(!created) {
+        models.Rating.update({rating_value: body.rating_value},
+          {where: {user_id: body.user_id, post_id: body.post_id}}
+          );
       }
-      return Post.findOne({
-        where: {
-          id: body.post_id,
-        },
-        attributes: [
-          "id",
-          "post_url",
-          "title",
-          "created_at",
-          [
-            sequelize.literal(
-              "(SELECT SUM(vote.vote_status) FROM vote WHERE post.id = vote.post_id)"
-            ),
-            "vote_count",
-          ],
-        ],
-        include: [
-          {
-            model: models.Comment,
-            attributes: [
-              "id",
-              "comment_text",
-              "post_id",
-              "user_id",
-              "created_at",
-            ],
-            include: {
-              model: models.User,
-              attributes: ["username"],
-            },
-          },
-        ],
-      });
-    });
+    })
   }
+  
 }
 
 // create fields/columns for Post model

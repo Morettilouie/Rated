@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Comment } = require('../../models');
+const { Comment, User, Vote} = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
@@ -24,7 +24,31 @@ router.post('/', withAuth, (req, res) => {
       res.status(400).json(err);
     });
 });
-
+// this needs to go the the comments route also need to add downvote
+router.put("/upvote", withAuth, (req, res) => {
+  // custom static method created in models/comment.js
+  Comment.upvote(
+    { ...req.body, user_id: req.session.user_id },
+    { Vote, Comment, User }
+  )
+    .then((updatedVoteData) => res.json(updatedVoteData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+router.put("/downvote", withAuth, (req, res) => {
+  // custom static method created in models/comment.js
+  Comment.downvote(
+    { ...req.body, user_id: req.session.user_id },
+    { Vote, Comment, User }
+  )
+    .then((updatedVoteData) => res.json(updatedVoteData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 router.delete('/:id', withAuth, (req, res) => {
   Comment.destroy({
     where: {
