@@ -9,21 +9,24 @@
     <div>
       <label for="post-url">Content</label>
       <input id="post-url" name="post-url" />
+      <form action="/profile" method="post" enctype="multipart/form-data">
+        <input type="file" name="avatar" />
+      </form>
     </div>
     <button type="submit" class="btn">Create</button>
 
-{{#if posts.length}}
-<section>
-  <h2>Your Posts</h2>
-  <ol>
-    {{#each posts as |post|}}
-    <li>
-      {{> post-info post}}
-      <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
-    </li>
-    {{/each}}
-  </ol>
-</section>
-{{/if}}
+    {{#if posts.length}}
+    <section>
+      <h2>Your Posts</h2>
+      <ol>
+        {{#each posts as |post|}}
+        <li>
+          {{> post-info post}}
+          <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
+        </li>
+        {{/each}}
+      </ol>
+    </section>
+    {{/if}}
 
-<script src="/javascript/add-post.js"></script>
+    <script src="/javascript/add-post.js"></script>
