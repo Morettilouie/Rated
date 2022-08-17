@@ -6,7 +6,9 @@
     <span>{{post_url}}</span>
     {{!-- {{vote_count}} {{format_plural "point" vote_count}} by {{user.username}} on {{format_date created_at}} --}}
     |
-    <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" vote_count}}</a>
+    <a href="/post/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+    |
+    <span>Rating</span>
     {{!-- <span>{{comments.length}} {{format_plural "comment" comments.length}}</span> --}}
   </div>
 </article>
