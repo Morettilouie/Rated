@@ -1,8 +1,6 @@
 async function upvoteClickHandler(event) {
   event.preventDefault();
-  const id = window.location.toString().split("/")[
-    window.location.toString().split("/").length - 1
-  ];
+  const id = event.currentTarget.value;
   const response = await fetch("/api/comments/upvote", {
     method: "PUT",
     body: JSON.stringify({
@@ -20,7 +18,9 @@ async function upvoteClickHandler(event) {
   }
 }
 // puts a click listener on all of the vote up buttons
+
 const upVoteButtons = document.querySelectorAll(".upvote-btn");
 upVoteButtons.forEach((button) => {
   button.addEventListener("click", upvoteClickHandler);
 });
+

@@ -16,7 +16,8 @@ router.post('/', withAuth, (req, res) => {
   Comment.create({
     comment_text: req.body.comment_text,
     user_id: req.session.user_id,
-    post_id: req.body.post_id
+    post_id: req.body.post_id,
+    vote_count: req.body.vote_count
   })
     .then(dbCommentData => res.json(dbCommentData))
     .catch(err => {
@@ -24,24 +25,23 @@ router.post('/', withAuth, (req, res) => {
       res.status(400).json(err);
     });
 });
-// this needs to go the the comments route also need to add downvote
 router.put("/upvote", withAuth, (req, res) => {
   // custom static method created in models/comment.js
   Comment.upvote(
     { ...req.body, user_id: req.session.user_id },
-    { Vote, Comment, User }
+    { Vote, User }
   )
     .then((updatedVoteData) => res.json(updatedVoteData))
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
-    });
+    })
 });
 router.put("/downvote", withAuth, (req, res) => {
   // custom static method created in models/comment.js
   Comment.downvote(
     { ...req.body, user_id: req.session.user_id },
-    { Vote, Comment, User }
+    { Vote, User }
   )
     .then((updatedVoteData) => res.json(updatedVoteData))
     .catch((err) => {

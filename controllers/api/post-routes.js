@@ -3,9 +3,6 @@ const sequelize = require("../../config/connection");
 const { Post, User, Comment, Rating } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-// api that helps with storing images in database
-const multer = require("multer");
-const path = require("path");
 
 // get all users
 router.get("/", (req, res) => {
@@ -13,10 +10,9 @@ router.get("/", (req, res) => {
   Post.findAll({
     attributes: [
       "id",
-      "post_url",
+      "content",
       "title",
       "created_at",
-      // 'created_at',
       // [sequelize.literal('(SELECT SUM(vote.vote_status) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
       // will be ratings
     ],
@@ -29,12 +25,7 @@ router.get("/", (req, res) => {
           "post_id",
           "user_id",
           "created_at",
-          [
-            sequelize.literal(
-              "(SELECT SUM(vote.vote_status) FROM vote WHERE comment.id = vote.comment_id)"
-            ),
-            "vote_count",
-          ],
+          "vote_count",
         ],
         include: {
           model: User,
@@ -61,15 +52,16 @@ router.get("/:id", (req, res) => {
     },
     attributes: [
       "id",
-      "post_url",
+      "content",
       "title",
       "created_at",
       [
         sequelize.literal(
-          "(SELECT AVG(rating.rating_status) FROM rating WHERE post.id = rating.post_id)"
+          "(SELECT AVG(rating.rating_value) FROM rating WHERE post.id = rating.post_id)"
         ),
         "rating_avg",
       ],
+      
     ],
     include: [
       {
@@ -80,12 +72,7 @@ router.get("/:id", (req, res) => {
           "post_id",
           "user_id",
           "created_at",
-          [
-            sequelize.literal(
-              "(SELECT AVG(rating.rating_status) FROM rating WHERE post.id = rating.post_id)"
-            ),
-            "rating_avg",
-          ],
+          "vote_count",
         ],
         include: {
           model: User,
@@ -112,34 +99,12 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", withAuth, (req, res) => {
-  // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
-  const storage = multer.diskStorage({
-    destination: (req, file, callback) => {
-      callback(null, "/uploads");
-    },
-    filename: (req, file, callback) => {
-      callback(null, Date.now() + path.extname(file.originalname));
-    },
-  });
 
-  const upload = multer({
-    storage: storage,
-    limits: { fileSize: "1000000" },
-    fileFilter: (req, file, callback) => {
-      const fileTypes = /jpeg|jpg|png|gif/;
-      const mimeType = fileTypes.test(file.mimetype);
-      const extname = fileTypes.test(path.extname(file.originalname));
-
-      if (mimetype && extname) {
-        return callback(null, true);
-      }
-      callback("incorrect file format");
-    },
-  }).single("image");
   
+
   Post.create({
     title: req.body.title,
-    post_url: req.body.post_url,
+    content: req.body.content,
     user_id: req.session.user_id,
   })
     .then((dbPostData) => res.json(dbPostData))

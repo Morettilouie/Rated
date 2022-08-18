@@ -1,15 +1,17 @@
-// NEED TO UPDATE THIS
+// api that helps with storing images in database
+
 async function newFormHandler(event) {
   event.preventDefault();
 
   const title = document.querySelector('input[name="post-title"]').value;
-  const post_url = document.querySelector('input[name="content"]').value;
+  const content = document.querySelector('input[name="content"]').value;
 
-  const response = await fetch(`/api/posts`, {
+   
+  const response = await fetch(`/api/posts`,  {
     method: 'POST',
     body: JSON.stringify({
       title,
-      post_url
+      content
     }),
     headers: {
       'Content-Type': 'application/json'

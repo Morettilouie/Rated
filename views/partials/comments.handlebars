@@ -7,16 +7,14 @@
     </div>
     <div class="text">
       {{comment_text}}
-      {{#if loggedIn}}
-      <button type="button" class="upvote-btn">upvote</button>
-      {{/if}}
-      {{!-- <div class="vote-count-number"> --}}
-        {{comment.vote_count}}
-      {{!-- </div> --}}
-       
-      {{#if loggedIn}}
-      <button type="button" class="downvote-btn">downvote</button>
-      {{/if}}
+    
+      <button type="button"value="{{id}}" class="upvote-btn"><i class="fa-solid fa-arrow-up"></i></button>
+      
+      
+        {{vote_count}}
+      
+      <button type="button"value="{{id}}" class="downvote-btn"><i class="fa-solid fa-arrow-down"></i></button>
+      
     </div>
   </section>
   {{/each}}

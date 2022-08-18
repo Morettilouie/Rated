@@ -17,7 +17,7 @@ Vote.init(
         key: "id",
       },
     },
-    // will be comment_id
+    // comment_id
     comment_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -28,7 +28,6 @@ Vote.init(
     // 0 no vote 1 like -1 dislike
     vote_status: {
       type: DataTypes.INTEGER,
-      defaultValue: 0,
     },
   },
   {

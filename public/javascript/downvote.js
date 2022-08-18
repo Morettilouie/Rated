@@ -1,8 +1,6 @@
 async function downvoteClickHandler(event) {
     event.preventDefault();
-    const id = window.location.toString().split('/')[
-      window.location.toString().split('/').length - 1
-    ];
+    const id = event.currentTarget.value;
     const response = await fetch('/api/comments/downvote', {
       method: 'PUT',
       body: JSON.stringify({
