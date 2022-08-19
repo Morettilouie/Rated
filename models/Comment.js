@@ -18,7 +18,7 @@ class Comment extends Model {
       .then((data) => {
         const [result, created] = data;
         var currentVoteStatus = result.dataValues.vote_status;
-        if (created) {
+        if (!created) {
           if (currentVoteStatus === -1) {
             currentVoteStatus = 0;
           }
@@ -61,6 +61,7 @@ class Comment extends Model {
       }
     })
       .then((data) => {
+        console.log(data);
         const [result, created] = data;
         var currentVoteStatus = result.dataValues.vote_status;
         console.log(currentVoteStatus);
