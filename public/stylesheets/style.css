@@ -9,12 +9,18 @@ body, html {
   font-family: sans-serif;
   color: #333;
 }
-
 a {
   text-decoration: none;
   color: #225ca3;
   font-weight: bold;
   transition: color .1s;
+}
+nav a{
+  padding: 25px;
+  font-size: 1.25rem;
+}
+#logout {
+  font-size: 1.25rem;
 }
 
 a:hover {
@@ -24,7 +30,7 @@ a:hover {
 button {
   background-color: #225ca3;
   border: 0;
-  padding: 1%;
+  padding: 1.25%;
   color: white;
   font-weight: bold;
   transition: background-color .1s;
@@ -83,7 +89,7 @@ header {
 }
 
 header h1 {
-  font-size: 1em;
+  font-size: 3em;
 }
 
 main {
@@ -165,7 +171,7 @@ main {
 }
 
 .comment .meta {
-  font-size: 90%;
+  font-size: 110%;
   margin-bottom: .5%;
   opacity: .6;
 }
